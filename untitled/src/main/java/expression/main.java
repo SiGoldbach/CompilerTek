@@ -50,42 +50,43 @@ public class main {
 class Interpreter extends AbstractParseTreeVisitor<AST> implements hardwareVisitor<AST> {
     @Override
     public AST visitStart(hardwareParser.StartContext ctx) {
-        return null;
+        return visit(ctx.command());
     }
 
     @Override
     public AST visitName(hardwareParser.NameContext ctx) {
-        return null;
+        return new Name(ctx.id.getText());
     }
 
     @Override
     public AST visitInput(hardwareParser.InputContext ctx) {
-        return null;
+        return new Input(ctx.idp.getText());
     }
 
     @Override
     public AST visitOutput(hardwareParser.OutputContext ctx) {
-        return null;
+        return new Output(ctx.idp.getText());
     }
 
     @Override
     public AST visitUpdate(hardwareParser.UpdateContext ctx) {
-        return null;
+        return new Update(ctx.id.getText());
     }
 
     @Override
     public AST visitLatch(hardwareParser.LatchContext ctx) {
-        return null;
+        return new Latch(ctx.id.getText());
     }
 
     @Override
     public AST visitSimulate(hardwareParser.SimulateContext ctx) {
-        return null;
+        return new Simulate(ctx.id.getText());
     }
 
     @Override
     public AST visitNot(hardwareParser.NotContext ctx) {
         AST a = new Not(visit(ctx.ex1));
+
         return a;
     }
 

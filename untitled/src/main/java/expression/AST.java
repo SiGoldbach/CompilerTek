@@ -38,13 +38,10 @@ class BinExpr extends AST {
 
 }
 class Name extends AST {
-    String name;
-
-    public Name(String name) {
-        this.name = name;
+    public String name;
+    public Name(String name){
+        this.name=name;
     }
-
-    @Override
     public boolean eval() {
         return false;
     }
@@ -63,8 +60,10 @@ class Not extends AST {
 }
 
 class Update extends AST {
-
-    @Override
+    public String name;
+    public Update(String name){
+        this.name=name;
+    }
     public boolean eval() {
         return false;
     }
@@ -84,10 +83,10 @@ class Paranthesis extends AST {
 }
 
 class Output extends AST {
-    public Output() {
+    public String name;
+    public Output(String name){
+        this.name=name;
     }
-
-    @Override
     public boolean eval() {
         return false;
     }
@@ -109,17 +108,20 @@ class Or extends AST {
 }
 
 class Latch extends AST{
-    String color;
-    boolean value;
-
-    @Override
+    public String name;
+    public Latch(String name){
+        this.name=name;
+    }
     public boolean eval() {
         return false;
     }
 }
 
 class Simulate extends AST {
-    @Override
+    public String name;
+    public Simulate(String name){
+        this.name=name;
+    }
     public boolean eval() {
         return false;
     }
