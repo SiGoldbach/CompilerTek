@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+scale 350 width
+[*] --> BeforeTheGame
+
+state BeforeTheGame {
+  [*] --> NotReady
+  NotReady --> Ready : SetUpPieces
+  Ready --> Playing : Make move
+}
+
+state Playing {
+  [*] --> GameState
+  GameState -->  GameState: move
+  GameState -->Draw: move
+  GameState --> Checkmate: move
+  Draw-->GameFinished
+  Checkmate-->GameFinished
+ 
+
+  
+
+}
+state GameFinished {
+     
+  }
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+scale 350 width
+[*] --> DeadState
+
+state DeadState {
+  [*] --> BatteryApplied:apply battery
+  BatteryApplied-->BatteryState:Turn on
+
+}
+
+state BatteryState {
+  [*] --> NewValueSelection
+
+
+  state NewValuePreview {
+
+  }
+
+}
+@enduml
