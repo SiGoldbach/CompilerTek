@@ -10,14 +10,14 @@ public class main {
     public static void main(String[] args) throws IOException {
 
         // we expect exactly one argument: the name of the input file
-        if (args.length != 1) {
+        /*if (args.length != 1) {
             System.err.println("\n");
             System.err.println("Impl Interpreter\n");
             System.err.println("=================\n\n");
             System.err.println("Please give as input argument a filename\n");
             System.exit(-1);
-        }
-        String filename = args[0];
+        }*/
+        String filename = "C:\\Users\\siggo\\IdeaProjects\\CompilerTek\\untitled\\src\\main\\java\\expression\\02-trafiklys-minimal.txt";
 
         // open the input file
         CharStream input = CharStreams.fromFileName(filename);
@@ -48,7 +48,7 @@ public class main {
 // simply a Integer.
 
 class Interpreter extends AbstractParseTreeVisitor<AST> implements hardwareVisitor<AST> {
-    Environment env = new Environment();
+    Environment env=new Environment();
 
     @Override
     public AST visitStart(hardwareParser.StartContext ctx) {
@@ -67,7 +67,11 @@ class Interpreter extends AbstractParseTreeVisitor<AST> implements hardwareVisit
 
     @Override
     public AST visitOutput(hardwareParser.OutputContext ctx) {
-        return new Output(ctx.idp.getText());
+        System.out.println("Visiting output");
+        Output a= new Output(ctx.idp.getText());
+        System.out.println(a.name);
+        env.outputs.put(a.name,a.val);
+        return null;
     }
 
     @Override
@@ -78,14 +82,16 @@ class Interpreter extends AbstractParseTreeVisitor<AST> implements hardwareVisit
     @Override
     public AST visitLatch(hardwareParser.LatchContext ctx) {
         Latch a = new Latch(ctx.id.getText());
-        env.latches.add(a);
+        env.latches.put(a.name,a.val);
         return null;
 
     }
 
     @Override
     public AST visitSimulate(hardwareParser.SimulateContext ctx) {
-        return new Simulate(ctx.id.getText());
+        Simulate a= new Simulate(ctx.id.getText());
+        env.simulate=a;
+        return null;
     }
 
     @Override

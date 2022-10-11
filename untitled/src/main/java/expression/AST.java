@@ -84,11 +84,12 @@ class Paranthesis extends AST {
 
 class Output extends AST {
     public String name;
+    public boolean val;
     public Output(String name){
         this.name=name;
     }
     public boolean eval() {
-        return false;
+        return val;
     }
 }
 
@@ -109,11 +110,12 @@ class Or extends AST {
 
 class Latch extends AST{
     public String name;
+    public boolean val=false;
     public Latch(String name){
         this.name=name;
     }
     public boolean eval() {
-        return false;
+        return val;
     }
 }
 
