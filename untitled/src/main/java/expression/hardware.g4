@@ -1,16 +1,14 @@
 grammar hardware;
 
-//start: '.hardware'IDENTIFIER '.inputs'IDENTIFIER '.outputs'IDENTIFIER* LATCH*'.update'boolexpr+'.simulate'IDENTIFIER;
+start: '.hardware'id=IDENTIFIER '.inputs'id=IDENTIFIER+ '.outputs'id=IDENTIFIER+ latch* '.update' updateVal+ simulate;
 
-start : command* EOF;
+//start : command* EOF;
 
-command : '.hardware' id=IDENTIFIER   # Name
+/*command : '.hardware' id=IDENTIFIER   # Name
         | '.inputs' idp=IDENTIFIER+     # Input
-        | '.outputs' idp=IDENTIFIER+    # Output
         |'.update' (id=IDENTIFIER '=' ex=expr)+ # Update
-        |'.latch' id=IDENTIFIER '->' id2=IDENTIFIER # Latch
-        |'.simulate' id=IDENTIFIER '=' bin=BINARY # Simulate
-        ;
+        ;*/
+
 
 expr : '('ex1=expr')' # Paranthesis
     | ('!')ex1=expr # Not
@@ -18,7 +16,10 @@ expr : '('ex1=expr')' # Paranthesis
     | ex1=expr ('||') ex2=expr # Or
     | id=IDENTIFIER # Binexpr
     ;
-
+updateVal: id=IDENTIFIER '=' ex=expr  #UpdateVal1;
+latch: '.latch' id1=IDENTIFIER '->' id2=IDENTIFIER #Latch1;
+//output: '.outputs' idp=IDENTIFIER+    # Output1;
+simulate:'.simulate' id=IDENTIFIER '=' bin=BINARY # Simulate1;
 
 IDENTIFIER: [a-zA-Z]+;
 BINARY:[01]+;

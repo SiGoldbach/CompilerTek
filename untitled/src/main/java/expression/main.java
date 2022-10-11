@@ -38,7 +38,8 @@ public class main {
         // Construct an interpreter and run it on the parse tree
         Interpreter interpreter = new Interpreter();
         AST result = interpreter.visit(parseTree);
-        System.out.println("The result is: " + result.eval());
+        System.out.println("Getting to result");
+        //System.out.println("The result is: " + result.eval());
     }
 }
 
@@ -48,7 +49,8 @@ public class main {
 // simply a Integer.
 
 class Interpreter extends AbstractParseTreeVisitor<AST> implements hardwareVisitor<AST> {
-    Environment env=new Environment();
+    Environment env = new Environment();
+
 
     @Override
     public AST visitStart(hardwareParser.StartContext ctx) {
@@ -56,76 +58,45 @@ class Interpreter extends AbstractParseTreeVisitor<AST> implements hardwareVisit
     }
 
     @Override
-    public AST visitName(hardwareParser.NameContext ctx) {
-        return new Name(ctx.id.getText());
-    }
-
-    @Override
-    public AST visitInput(hardwareParser.InputContext ctx) {
-        return new Input(ctx.idp.getText());
-    }
-
-    @Override
-    public AST visitOutput(hardwareParser.OutputContext ctx) {
-        System.out.println("Visiting output");
-        Output a= new Output(ctx.idp.getText());
-        System.out.println(a.name);
-        env.outputs.put(a.name,a.val);
-        return null;
-    }
-
-    @Override
-    public AST visitUpdate(hardwareParser.UpdateContext ctx) {
-        return new Update(ctx.id.getText());
-    }
-
-    @Override
-    public AST visitLatch(hardwareParser.LatchContext ctx) {
-        Latch a = new Latch(ctx.id.getText());
-        env.latches.put(a.name,a.val);
-        return null;
-
-    }
-
-    @Override
-    public AST visitSimulate(hardwareParser.SimulateContext ctx) {
-        Simulate a= new Simulate(ctx.id.getText());
-        env.simulate=a;
-        return null;
-    }
-
-    @Override
     public AST visitNot(hardwareParser.NotContext ctx) {
-        AST a = new Not(visit(ctx.ex1));
-
-        return a;
+        return new Not((Expr) visit(ctx.ex1));
     }
 
     @Override
     public AST visitOr(hardwareParser.OrContext ctx) {
-        AST a = new Or(visit(ctx.ex1), visit(ctx.ex2));
-
-        return a;
+        return new Or((Expr) visit(ctx.ex1), (Expr) visit(ctx.ex2));
     }
 
     @Override
     public AST visitParanthesis(hardwareParser.ParanthesisContext ctx) {
-        AST a = new Paranthesis(visit(ctx.ex1));
-        return a;
+        return null;
     }
 
     @Override
     public AST visitAnd(hardwareParser.AndContext ctx) {
-        AST a = new And(visit(ctx.ex1), visit(ctx.ex2));
-        return a;
+        return new And((Expr) visit(ctx.ex1), (Expr) visit(ctx.ex2));
     }
 
     @Override
     public AST visitBinexpr(hardwareParser.BinexprContext ctx) {
-        AST a = new BinExpr(ctx.id.getText());
-        return a;
+        Variable var= new Variable(ctx.id.getText());
+        var.eval(env);
+        return var;
     }
 
+    @Override
+    public AST visitUpdateVal1(hardwareParser.UpdateVal1Context ctx) {
+        return null;
+    }
 
+    @Override
+    public AST visitLatch1(hardwareParser.Latch1Context ctx) {
+        return null;
+    }
+
+    @Override
+    public AST visitSimulate1(hardwareParser.Simulate1Context ctx) {
+        return null;
+    }
 }
 
