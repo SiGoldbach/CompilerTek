@@ -48,9 +48,11 @@ public class main {
 // simply a Integer.
 
 class Interpreter extends AbstractParseTreeVisitor<AST> implements hardwareVisitor<AST> {
+    Environment env = new Environment();
+
     @Override
     public AST visitStart(hardwareParser.StartContext ctx) {
-        return visit(ctx.command());
+        return null;
     }
 
     @Override
@@ -75,7 +77,10 @@ class Interpreter extends AbstractParseTreeVisitor<AST> implements hardwareVisit
 
     @Override
     public AST visitLatch(hardwareParser.LatchContext ctx) {
-        return new Latch(ctx.id.getText());
+        Latch a = new Latch(ctx.id.getText());
+        env.latches.add(a);
+        return null;
+
     }
 
     @Override
