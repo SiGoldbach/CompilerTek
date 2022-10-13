@@ -38,4 +38,66 @@ public class Environment {
     public void setSimulate(Simulate simulate) {
         this.simulate = simulate;
     }
+
+    And and;
+
+    public And getAnd() {
+        return and;
+    }
+    public void setAnd(And and) {
+        this.and = and;
+    }
+
+    Not not;
+
+    public Not getNot() {
+        return not;
+    }
+
+    public void setNot(Not not) {
+        this.not = not;
+    }
+
+    Or or;
+
+    public Or getOr() {
+        return or;
+    }
+
+    public void setOr(Or or) {
+        this.or = or;
+    }
+
+    Variable variable;
+
+    public Variable getVariable() {
+        return variable;
+    }
+
+    public void setVariable(Variable variable) {
+        this.variable = variable;
+    }
+
+    Input input;
+
+    public Input getInput() {
+        return input;
+    }
+
+    public void setInput(Input input) {
+        this.input = input;
+    }
+
+    Update update;
+
+    public Update getUpdate() {
+        return update;
+    }
+
+    public void setUpdate(Update update) {
+        this.update = update;
+    }
+
 }
+
+
