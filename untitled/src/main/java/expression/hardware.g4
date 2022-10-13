@@ -1,6 +1,6 @@
 grammar hardware;
 
-start: '.hardware'id=IDENTIFIER '.inputs'id=IDENTIFIER+ '.outputs'id=IDENTIFIER+ latch* '.update' updateVal+ simulate;
+start: '.hardware'id1=IDENTIFIER '.inputs' inputVal+ '.outputs' outputVal+ latch* '.update' updateVal+ simulate EOF;
 
 //start : command* EOF;
 
@@ -16,7 +16,11 @@ expr : '('ex1=expr')' # Paranthesis
     | ex1=expr ('||') ex2=expr # Or
     | id=IDENTIFIER # Binexpr
     ;
-updateVal: id=IDENTIFIER '=' ex=expr  #UpdateVal1;
+
+inputVal: id = IDENTIFIER #InputVal1;
+outputVal: id = IDENTIFIER #OutputVal1;
+updateVal: id = IDENTIFIER '=' ex=expr  #UpdateVal1;
+
 latch: '.latch' id1=IDENTIFIER '->' id2=IDENTIFIER #Latch1;
 //output: '.outputs' idp=IDENTIFIER+    # Output1;
 simulate:'.simulate' id=IDENTIFIER '=' bin=BINARY # Simulate1;

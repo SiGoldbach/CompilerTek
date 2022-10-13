@@ -22,13 +22,14 @@ public class Environment {
         this.outputs = outputs;
     }
 
-    Map<String,Boolean> latches;
-    Map<String,Boolean> outputs;
+    Map<String, Boolean> latches;
+    Map<String, Boolean> outputs;
 
     Simulate simulate;
-    public Environment(){
-        latches=new HashMap<>();
-        outputs=new HashMap<>();
+
+    public Environment() {
+        latches = new HashMap<>();
+        outputs = new HashMap<>();
     }
 
     public Simulate getSimulate() {
@@ -37,5 +38,10 @@ public class Environment {
 
     public void setSimulate(Simulate simulate) {
         this.simulate = simulate;
+    }
+
+    //Method for debugging just to print if something actually gets stored in env
+    public void print() {
+        System.out.println("There are now: " + latches.size());
     }
 }

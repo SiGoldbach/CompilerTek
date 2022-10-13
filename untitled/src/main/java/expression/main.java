@@ -1,6 +1,7 @@
 package expression;
 
 import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.CharStreams;
 
@@ -21,6 +22,8 @@ public class main {
 
         // open the input file
         CharStream input = CharStreams.fromFileName(filename);
+        String in=input.getText(new Interval(0,1000));
+        System.out.println(in);
         //new ANTLRFileStream (filename); // depricated
 
         // create a lexer/scanner
@@ -54,31 +57,37 @@ class Interpreter extends AbstractParseTreeVisitor<AST> implements hardwareVisit
 
     @Override
     public AST visitStart(hardwareParser.StartContext ctx) {
-        return null;
+        System.out.println("Visiting start");
+        return new Not(new Variable("hat"));
     }
 
     @Override
     public AST visitNot(hardwareParser.NotContext ctx) {
+        System.out.println("Visiting not");
         return new Not((Expr) visit(ctx.ex1));
     }
 
     @Override
     public AST visitOr(hardwareParser.OrContext ctx) {
+        System.out.println("Visiting or");
         return new Or((Expr) visit(ctx.ex1), (Expr) visit(ctx.ex2));
     }
 
     @Override
     public AST visitParanthesis(hardwareParser.ParanthesisContext ctx) {
+        System.out.println("Visiting paranthesis");
         return null;
     }
 
     @Override
     public AST visitAnd(hardwareParser.AndContext ctx) {
+        System.out.println("Visiting and");
         return new And((Expr) visit(ctx.ex1), (Expr) visit(ctx.ex2));
     }
 
     @Override
     public AST visitBinexpr(hardwareParser.BinexprContext ctx) {
+        System.out.println("Visiting binexpr");
         Variable var= new Variable(ctx.id.getText());
         var.eval(env);
         return var;
@@ -86,16 +95,20 @@ class Interpreter extends AbstractParseTreeVisitor<AST> implements hardwareVisit
 
     @Override
     public AST visitUpdateVal1(hardwareParser.UpdateVal1Context ctx) {
+        System.out.println("Visiting updateVal");
         return null;
     }
 
     @Override
     public AST visitLatch1(hardwareParser.Latch1Context ctx) {
+        System.out.println("Visiting latch");
+        env.print();
         return null;
     }
 
     @Override
     public AST visitSimulate1(hardwareParser.Simulate1Context ctx) {
+        System.out.println("Visiting simulate");
         return null;
     }
 }
